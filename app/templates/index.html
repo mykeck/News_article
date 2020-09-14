@@ -1,2 +1,16 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macros%}
+
+{% block styles%}
+{{ super()}}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h2 class="text_center">GENERAL NEWS</h2>
+    <hr>
+    <div class="row">
+        {{macro.displayArticleList(general)}}
+    </div>
+</div>
