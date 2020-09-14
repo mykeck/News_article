@@ -1,8 +1,8 @@
 import urllib.request, json
 from .models import Article
 
-source = models.source
-Article = models.Article
+# source = models.source
+# Article = models.Article
 
 #Getting api key
 api_key = None
@@ -35,7 +35,7 @@ def get_articles(filter):
 
     return article_results 
 
-def process_results(article_list):
+def process_articles(article_list):
 
     article_results = []
     for article_item in article_list:
@@ -51,5 +51,43 @@ def process_results(article_list):
         if content and urlToImage:
             article_object = Article(source,author,title,description,url,urlToImage, publishedAt, content)
             article_results.append(article_object)
+
+    return article_results
+
+
+def get_sources():
+    get_sources_url = base_url.format('sources', api_key) 
+
+    with urllib.request.urlopen(get_sources_url) as url:
+        sources_data = url.read()
+        sources_response = json.loads(sources_data)
+
+        sources_object = None
+
+        sources_response_data = sources_response['sources']
+        if sources_response_data:
+            sources_object = process_sources(sources_response_data) 
+
+    return sources_object
+
+
+def process_sources(source_list):
+
+    source_results = []
+    for source_item in source_list:
+        id = source_item.get('id')
+        name = source_item.get('name')
+        description = source_item.get('description')
+        url = source_item.get('url')
+        category = source_item.get('category')
+        language = source_item.get('language')
+        country = source_item.get('country')
+
+        sources_object = Source(id, name, description, url, category, language, country)
+        source_results.append(sources_object)
+
+    return source_results    
+
+                         
 
 
