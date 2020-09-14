@@ -1,5 +1,5 @@
 import urllib.request, json
-from .models import models
+from .models import Article
 
 source = models.source
 Article = models.Article
@@ -33,5 +33,23 @@ def get_articles(filter):
             article_results_list = get_articles_response['articles']
             article_results = process_articles(article_results_list)
 
-    return article_results        
+    return article_results 
+
+def process_results(article_list):
+
+    article_results = []
+    for article_item in article_list:
+        source = article_item.get('source')
+        author = article_item.get('author') 
+        title = article_item.get('title')
+        description = article_item.get('description')
+        url = article_item.get('url')
+        urlToImage = article_item.get('urlToImage')
+        publishedAt = article_item.get('publishedAt')
+        content = article_item.get('content')
+
+        if content and urlToImage:
+            article_object = Article(source,author,title,description,url,urlToImage, publishedAt, content)
+            article_results.append(article_object)
+
 
