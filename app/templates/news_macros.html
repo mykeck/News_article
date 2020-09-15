@@ -10,8 +10,8 @@
                     <p class="desc">
                         {{news.description}}
                     </p>
-                    <a href="/articles/{{news.id}}"><button>Read Articles</button> </a>
-                    <a href="{{news.url}}"><button id="visit">Visit {{news.name}}</button></a>
+                    <a href="/articles/{{news.id}}"><button type="button" class="btn btn-outline-dark">Read Articles</button> </a>
+                    <a href="{{news.url}}"><button class="btn btn-outline-dark">Visit {{news.name}}</button></a>
                 </div>
             </div>
             {% endfor %}
